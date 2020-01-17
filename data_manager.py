@@ -69,7 +69,12 @@ def add_message(cursor, message, user_id):
 @database_common.connection_handler
 def get_all_messages(cursor):
     cursor.execute(f"""
-                            SELECT * FROM messages
+                            SELECT 
+                                messages.message AS message,
+                                users.username AS username,
+                                messages.created AS created
+                            FROM messages
+                            INNER JOIN users ON messages.user_id = users.id
                             ORDER BY created DESC; 
             """)
     messages = cursor.fetchall()

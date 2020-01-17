@@ -69,7 +69,7 @@ def display_messages():
         message = request.form['message']
         user_id = data_manager.get_user_id_by_username(username)
         data_manager.add_message(message, user_id)
-        return redirect( url_for('display_messages'))
+        return redirect(url_for('display_messages'))
     messages = data_manager.get_all_messages()
     return render_template('messages.html',
                            messages=messages)
