@@ -62,5 +62,18 @@ def logout():
     return redirect(url_for('index'))
 
 
+@app.route('/messages', methods=['GET', 'POST'])
+def display_messages():
+    if request.method == 'POST':
+        username = session['username']
+        message = request.form['message']
+        user_id = data_manager.get_user_id_by_username(username)
+        data_manager.add_message(message, user_id)
+        return redirect( url_for('display_messages'))
+    messages = data_manager.get_all_messages()
+    return render_template('messages.html',
+                           messages=messages)
+
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -45,3 +45,32 @@ def get_db_password_for_user(cursor, username):
 def verify_password(plain_text_password, hashed_password):
     hashed_bytes_password = hashed_password.encode('utf-8')
     return bcrypt.checkpw(plain_text_password.encode('utf-8'), hashed_bytes_password)
+
+
+@database_common.connection_handler
+def get_user_id_by_username(cursor, username):
+    cursor.execute(f"""
+                        SELECT id FROM users
+                        WHERE username='{username}';
+""")
+    result = cursor.fetchone()
+    user_id = result['id']
+    return user_id
+
+
+@database_common.connection_handler
+def add_message(cursor, message, user_id):
+    cursor.execute(f"""
+                        INSERT INTO messages (message, user_id)
+                        VALUES ('{message}', {user_id});
+    """)
+
+
+@database_common.connection_handler
+def get_all_messages(cursor):
+    cursor.execute(f"""
+                            SELECT * FROM messages
+                            ORDER BY created DESC; 
+            """)
+    messages = cursor.fetchall()
+    return messages
