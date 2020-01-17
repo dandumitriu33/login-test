@@ -40,11 +40,16 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        session['username'] = request.form['username']
-        return redirect(url_for('index'))
+        db_password = data_manager.get_db_password_for_user(request.form['username'])
+        if data_manager.verify_password(request.form['password'], db_password):
+            session['username'] = request.form['username']
+            return redirect(url_for('index'))
+        else:
+            return 'no'
     return '''
         <form method="post">
             <p><input type=text name=username>
+            <p><input type=password name=password>
             <p><input type=submit value=Login>
         </form>
     '''
