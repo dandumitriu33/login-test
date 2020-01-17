@@ -31,7 +31,8 @@ def register():
         username = request.form['username']
         email = request.form['email']
         cars = request.form['cars']
-        password = request.form['password']
+        # salt = data_manager.get_salt() -- as bcrypt saves it automatically in the hash
+        password = data_manager.hash_password(request.form['password'])
         data_manager.register_user(name, username, email, cars, password)
         return redirect(url_for('index'))
 
