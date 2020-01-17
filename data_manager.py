@@ -10,3 +10,11 @@ def get_cars(cursor):
         """)
     cars = cursor.fetchall()
     return cars
+
+
+@database_common.connection_handler
+def register_user(cursor, name, username, email, cars, password):
+    cursor.execute(f"""
+                        INSERT INTO users (name, username, email, cars, password)
+                        VALUES ('{name}', '{username}', '{email}', '{cars}', '{password}');
+""")

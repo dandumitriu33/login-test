@@ -27,7 +27,12 @@ def register():
     if request.method == 'GET':
         return render_template('register.html')
     elif request.method == 'POST':
-
+        name = request.form['name']
+        username = request.form['username']
+        email = request.form['email']
+        cars = request.form['cars']
+        password = request.form['password']
+        data_manager.register_user(name, username, email, cars, password)
         return redirect(url_for('index'))
 
 
