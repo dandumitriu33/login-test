@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Home</title>
+{% endblock head %}
+
+
+
+{% block body %}
+
+<div>
+{{ message }}
+</div>
+<p> test </p>
+
+
+    {{ for car in cars }}
+        <p>{{ car }}</p>
+    {{ endfor }}
+
+
+
+
+
+{% endblock body %}

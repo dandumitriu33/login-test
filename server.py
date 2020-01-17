@@ -1,5 +1,6 @@
 from flask import Flask, render_template, make_response, session
 from flask import redirect, url_for, escape, request
+import data_manager
 
 app = Flask(__name__)
 
@@ -11,8 +12,14 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 @app.route('/')
 def index():
     if 'username' in session:
-        return 'Logged in as %s' % escape(session['username'])
-    return 'You are not logged in.'
+        message = 'Logged in as %s' % escape(session['username'])
+        cars = data_manager.get_cars()
+        return render_template('index.html',
+                               message=message,
+                               cars=cars)
+    message = 'You are not logged in.'
+    return render_template('index.html',
+                           message=message)
 
 
 @app.route('/login', methods=['GET', 'POST'])
