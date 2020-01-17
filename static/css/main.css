@@ -1,3 +1,7 @@
 html {
     background-color: gray;
 }
+
+.authentication-buttons {
+    text-align: right;
+}

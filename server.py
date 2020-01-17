@@ -22,6 +22,15 @@ def index():
                            message=message)
 
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'GET':
+        return render_template('register.html')
+    elif request.method == 'POST':
+
+        return redirect(url_for('index'))
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
