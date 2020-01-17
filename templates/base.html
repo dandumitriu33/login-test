@@ -14,10 +14,17 @@
 <body>
 
 <div class="authentication-buttons">
-    <a href="{{ url_for('register') }}">Register</a><br>
-    <a href="{{ url_for('login') }}">Login</a>
-    <a href="{{ url_for('logout') }}">Logout</a>
+
+    {% if not session %}
+        <a href="{{ url_for('register') }}">Register</a><br>
+        <a href="{{ url_for('login') }}">Login</a>
+    {% else %}
+        <a href="{{ url_for('logout') }}">Logout</a>
+    {% endif %}
 </div>
+
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('display_messages') }}">Messages</a>
 
     {% block body %}{% endblock body %}
 
