@@ -1,0 +1,12 @@
+html {
+    background-color: rgb(64,38,32);
+    color: rgb(255,153,128);
+}
+
+a {
+    color: rgb(255,153,128);
+}
+
+.authentication-buttons {
+    text-align: right;
+}

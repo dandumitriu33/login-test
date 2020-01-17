@@ -74,3 +74,23 @@ def get_all_messages(cursor):
             """)
     messages = cursor.fetchall()
     return messages
+
+
+@database_common.connection_handler
+def get_settings(cursor, username):
+    cursor.execute(f"""
+                        SELECT theme FROM users
+                        WHERE username='{username}';
+""")
+    result = cursor.fetchone()
+    theme = result['theme']
+    return theme
+
+
+@database_common.connection_handler
+def set_user_theme(cursor, username, theme):
+    cursor.execute(f"""
+                        UPDATE users 
+                        SET theme='{theme}'
+                        WHERE username='{username}';
+    """)

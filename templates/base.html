@@ -4,8 +4,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 
+
+    {% if session %}
+        {% if request.cookies.get('theme') == 'light' %}
+            <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        {% elif request.cookies.get('theme') == 'dark' %}
+            <link rel="stylesheet" href="{{ url_for('static', filename='css/darkmain.css') }}">
+        {% endif %}
+    {% else %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    {% endif %}
 
     {% block head %}{% endblock head %}
 
@@ -20,7 +29,9 @@
         <a href="{{ url_for('login') }}">Login</a>
     {% else %}
         <a href="{{ url_for('logout') }}">Logout</a>
+        <a href="{{ url_for('display_settings') }}">Settings</a>
     {% endif %}
+
 </div>
 
     <a href="{{ url_for('index') }}">Home</a>

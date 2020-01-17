@@ -1,5 +1,10 @@
 html {
-    background-color: gray;
+    background-color: darkgray;
+    color: rgb(64,38,32);
+}
+
+a {
+    color: rgb(64,38,32);
 }
 
 .authentication-buttons {

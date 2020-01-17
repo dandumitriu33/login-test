@@ -75,5 +75,19 @@ def display_messages():
                            messages=messages)
 
 
+@app.route('/settings', methods=['GET', 'POST'])
+def display_settings():
+    if request.method == 'POST':
+        theme = request.form['theme']
+        redirect_to_index = redirect('/')
+        response = make_response(redirect_to_index)
+        response.set_cookie('theme', value=theme, max_age=60*60*24*30)
+        data_manager.set_user_theme(session['username'], theme)
+        return response
+    theme = data_manager.get_settings(session['username'])
+    return render_template('settings.html',
+                           theme=theme)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
