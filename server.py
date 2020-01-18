@@ -16,7 +16,8 @@ def index():
         cars = data_manager.get_cars()
         return render_template('index.html',
                                message=message,
-                               cars=cars)
+                               cars=cars,
+                               username=session['username'])
     message = 'You are not logged in.'
     return render_template('index.html',
                            message=message)
@@ -72,7 +73,8 @@ def display_messages():
         return redirect(url_for('display_messages'))
     messages = data_manager.get_all_messages()
     return render_template('messages.html',
-                           messages=messages)
+                           messages=messages,
+                           username=session['username'])
 
 
 @app.route('/settings', methods=['GET', 'POST'])
@@ -81,12 +83,13 @@ def display_settings():
         theme = request.form['theme']
         redirect_to_index = redirect('/')
         response = make_response(redirect_to_index)
-        response.set_cookie('theme', value=theme, max_age=60*60*24*30)
+        response.set_cookie(f"{session['username']}theme", value=theme, max_age=60*60*24*30)
         data_manager.set_user_theme(session['username'], theme)
         return response
-    theme = data_manager.get_settings(session['username'])
+    db_theme = data_manager.get_settings(session['username'])
     return render_template('settings.html',
-                           theme=theme)
+                           theme=db_theme,
+                           username=session['username'])
 
 
 if __name__ == '__main__':

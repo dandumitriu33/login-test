@@ -7,9 +7,9 @@
 
 
     {% if session %}
-        {% if request.cookies.get('theme') == 'light' %}
+        {% if request.cookies.get(username + 'theme') == 'light' %}
             <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-        {% elif request.cookies.get('theme') == 'dark' %}
+        {% elif request.cookies.get(username + 'theme') == 'dark' %}
             <link rel="stylesheet" href="{{ url_for('static', filename='css/darkmain.css') }}">
         {% endif %}
     {% else %}
