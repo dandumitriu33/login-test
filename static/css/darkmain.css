@@ -1,6 +1,7 @@
 html {
-    background-color: rgb(64,38,32);
-    color: rgb(255,153,128);
+    background-color: black;
+    font-family: sans-serif;
+    color: rgb(158,237,255);
 }
 
 a {
